@@ -1,0 +1,19 @@
+<resources>
+
+    <dimen name="text_movie_title_portrait">40sp</dimen>
+    <dimen name="text_movie_detail_large">24sp</dimen>
+
+    <dimen name="spacing_vertical_large">32dp</dimen>
+    <dimen name="spacing_vertical_medium">16dp</dimen>
+    <dimen name="spacing_vertical_small">8dp</dimen>
+    <dimen name="spacing_horizontal_extra_large">56dp</dimen>
+    <dimen name="spacing_horizontal_large">40dp</dimen>
+    <dimen name="spacing_horizontal_medium">16dp</dimen>
+
+    <dimen name="height_favorite_icon_medium">24dp</dimen>
+    <dimen name="height_favorite_icon_large">36dp</dimen>
+
+
+
+
+</resources>

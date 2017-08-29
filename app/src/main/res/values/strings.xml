@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Popular Movies</string>
+    <string name="title_movie_detail">Movie Detail</string>
+    <string name="action_sort_popular">Popular</string>
+    <string name="action_sort_top_rated">Top Rated</string>
+    <string name="action_favorites">Favorites</string>
+    <string name="action_movie_added_to_favorites_success">Movie added to Favorites</string>
+    <string name="action_movie_added_to_favorites_failure">Failure to add Movie to Favorites</string>
+    <string name="action_movie_deleted_from_favorites">Movie deleted from Favorites</string>
+    <string name="action_movie_deleted_from_favorites_failure">Failure to delete movie from Favorites</string>
+    <string name="msg_movie_detail_error">Unable to fetch movie details, please try again</string>
+    <string name="msg_movies_offline">No Network Connection, unable to retrieve movies</string>
+    <string name="msg_videos_offline">No Network Connection, unable to retrieve videos</string>
+    <string name="msg_reviews_offline">No Network Connection, unable to retrieve reviews</string>
+    <string name="msg_movie_service_error">Unable to retrieve movies at this time</string>
+    <string name="description_movie_poster">movie poster</string>
+    <string name="description_favorite_icon">favorite movie icon</string>
+    <string name="description_play_icon">play movie clip icon</string>
+
+    <string name="placeholder_movie_title">Movie Title</string>
+    <string name="placeholder_movie_year">2017</string>
+    <string name="placeholder_movie_rating">3.4 / 5</string>
+    <string name="placeholder_movie_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
+    <string name="placeholder_video_title">This is a fake video title, for layout purposes.</string>
+
+</resources>
