@@ -1,11 +1,15 @@
-# PopularMovies
-Udacity NanoDegree Project 1
+# PopularMovies2
+Udacity NanoDegree Project 2
 
-This is project 1 for Udacity's Android NanoDegree. This project does the following: 
+This is project 2 for Udacity's Android NanoDegree. This project does the following: 
 - Pulls a list of movies from TMDb ( The Move Database ) 
 - Populates a grid view of movie posters 
-- Allows users to pull most popular movies, as well as top rated movies
+- Allows users to pull most popular movies, top rated movies, or favorite movies
 - Allows user to click on movie poster and be taken to a movie detail page, with info on the movie
+- Pulls a list of movie clips for the selected movie, and displays all clip links in a list view on the detail page
+- Pulls a list of movie reviews for the selected movie, and displays all reviews in a list view on the detail page
+- Allows user to add or delete movie from favorites list
+- Uses a content provider to manage user's favorite movies
 
 This project does not employ any libraries other than Picasso for image retrieval.  Therefore, all 
 other functionality relies on native android methods.  
