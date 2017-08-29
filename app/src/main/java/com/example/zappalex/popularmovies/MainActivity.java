@@ -43,6 +43,9 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
     private LoaderManager mLoaderManager;
     private GridLayoutManager mGridLayoutManager;
 
+    // This is used to determine which loader to keep alive when navigating to movieDetailActivity.
+    private boolean mCurrentlyShowingFavorites = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,6 +148,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        mCurrentlyShowingFavorites = false;
 
         if (id == R.id.action_sort_popular) {
             fetchMoviesOnlyIfDeviceOnline(NetworkUtils.ENDPOINT_POPULAR_MOVIES);
@@ -153,6 +157,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
             fetchMoviesOnlyIfDeviceOnline(NetworkUtils.ENDPOINT_TOP_RATED_MOVIES);
             return true;
         } else if (id == R.id.action_favorites) {
+            mCurrentlyShowingFavorites = true;
             fetchFavoriteMovies();
             return true;
         }
@@ -241,7 +246,9 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
     private void destroyLoaders(){
         if(mLoaderManager != null){
             mLoaderManager.destroyLoader(TMDB_MOVIE_LOADER_ID);
-            mLoaderManager.destroyLoader(FAVORITE_MOVIES_LOADER_ID);
+            if(mCurrentlyShowingFavorites == false){
+                mLoaderManager.destroyLoader(FAVORITE_MOVIES_LOADER_ID);
+            }
         }
     }
 
