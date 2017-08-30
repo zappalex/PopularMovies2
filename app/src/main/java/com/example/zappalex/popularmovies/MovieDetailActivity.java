@@ -27,6 +27,7 @@ import com.example.zappalex.popularmovies.utilities.NetworkUtils;
 import com.example.zappalex.popularmovies.utilities.TheMovieDbJsonUtils;
 import com.squareup.picasso.Picasso;
 
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -37,6 +38,7 @@ public class MovieDetailActivity extends AppCompatActivity implements VideoAdapt
     private static final String REVIEWS_QUERY_BUNDLE_EXTRA = "reviews_query";
     private static final int VIDEOS_LOADER_ID = 56;
     private static final int REVIEWS_LOADER_ID = 57;
+
 
     private TextView mMovieTitleTextView;
     private ImageView mMoviePosterImg;
@@ -62,8 +64,6 @@ public class MovieDetailActivity extends AppCompatActivity implements VideoAdapt
         initLayoutAdapters();
         retrieveIntents();
 
-
-
         mIsMovieInFavorites = isMovieInFavorites(queryCurrentMovie(), mCurrentMovie);
         toggleFavoritesHeartImage(mIsMovieInFavorites);
     }
@@ -76,14 +76,6 @@ public class MovieDetailActivity extends AppCompatActivity implements VideoAdapt
         mMovieFavoriteImageView = (ImageView) findViewById(R.id.iv_favorite);
         mMovieOverviewTextView = (TextView) findViewById(R.id.tv_movie_overview);
 
-    }
-
-    private void toggleFavoritesHeartImage(boolean isFavorite) {
-        if (isFavorite) {
-            mMovieFavoriteImageView.setImageResource(R.drawable.heart_red);
-        } else {
-            mMovieFavoriteImageView.setImageResource(R.drawable.heart_grey);
-        }
     }
 
     private void initLayoutAdapters() {
@@ -138,12 +130,8 @@ public class MovieDetailActivity extends AppCompatActivity implements VideoAdapt
             queryBundle.putString(VIDEOS_QUERY_BUNDLE_EXTRA, videosEndpoint);
 
             LoaderManager loaderManager = getSupportLoaderManager();
-            Loader<ArrayList<Video>> videosLoader = loaderManager.getLoader(VIDEOS_LOADER_ID);
-            if (videosLoader != null) {
-                loaderManager.initLoader(VIDEOS_LOADER_ID, queryBundle, new VideosCallback());
-            } else {
-                loaderManager.restartLoader(VIDEOS_LOADER_ID, queryBundle, new VideosCallback());
-            }
+            loaderManager.restartLoader(VIDEOS_LOADER_ID, queryBundle, new VideosCallback());
+
         } else {
             Toast.makeText(this, getString(R.string.msg_videos_offline), Toast.LENGTH_LONG).show();
         }
@@ -155,27 +143,28 @@ public class MovieDetailActivity extends AppCompatActivity implements VideoAdapt
             queryBundle.putString(REVIEWS_QUERY_BUNDLE_EXTRA, reviewsEndpoint);
 
             LoaderManager loaderManager = getSupportLoaderManager();
-            Loader<ArrayList<Review>> reviewsLoader = loaderManager.getLoader(REVIEWS_LOADER_ID);
-            if (reviewsLoader != null) {
-                loaderManager.initLoader(REVIEWS_LOADER_ID, queryBundle, new ReviewsCallback());
-            } else {
-                loaderManager.restartLoader(REVIEWS_LOADER_ID, queryBundle, new ReviewsCallback());
-            }
+            loaderManager.restartLoader(REVIEWS_LOADER_ID, queryBundle, new ReviewsCallback());
         } else {
             Toast.makeText(this, getString(R.string.msg_reviews_offline), Toast.LENGTH_LONG).show();
         }
     }
 
-    private class VideosCallback implements LoaderManager.LoaderCallbacks<ArrayList<Video>> {
 
+    private class VideosCallback implements LoaderManager.LoaderCallbacks<ArrayList<Video>> {
         @Override
         public Loader<ArrayList<Video>> onCreateLoader(int id, final Bundle args) {
             return new AsyncTaskLoader<ArrayList<Video>>(getBaseContext()) {
 
+                // @ Geovani : this is the variable that does not seem to be caching upon rotation.
+                ArrayList<Video> mCachedVideos;
+
                 @Override
                 protected void onStartLoading() {
-                    super.onStartLoading();
-                    forceLoad();
+                    if(mCachedVideos != null){
+                       deliverResult(mCachedVideos);
+                    }else{
+                        forceLoad();
+                    }
                 }
 
                 @Override
@@ -192,6 +181,12 @@ public class MovieDetailActivity extends AppCompatActivity implements VideoAdapt
                         }
                     }
                     return null;
+                }
+
+                @Override
+                public void deliverResult(ArrayList<Video> data) {
+                    mCachedVideos = data;
+                    super.deliverResult(data);
                 }
             };
         }
@@ -287,6 +282,14 @@ public class MovieDetailActivity extends AppCompatActivity implements VideoAdapt
                 null,
                 new String[]{mCurrentMovie.getId()},
                 null);
+    }
+
+    private void toggleFavoritesHeartImage(boolean isFavorite) {
+        if (isFavorite) {
+            mMovieFavoriteImageView.setImageResource(R.drawable.heart_red);
+        } else {
+            mMovieFavoriteImageView.setImageResource(R.drawable.heart_grey);
+        }
     }
 
     public void onFavoriteClick(View view) {
