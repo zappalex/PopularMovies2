@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
+import android.net.Network;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
     private static final int GRID_LAYOUT_SPAN_PORTRAIT = 2;
     private static final int GRID_LAYOUT_SPAN_LANDSCAPE = 3;
 
+    private static final String DEFAULT_SORT_ORDER = NetworkUtils.ENDPOINT_POPULAR_MOVIES;
+    private static final String EXTRA_SORT_ORDER = "sort_order";
     private static final String QUERY_TMDB_MOVIE_BUNDLE_EXTRA = "tmdb_movie_query";
     private static final int TMDB_MOVIE_LOADER_ID = 455;
     private static final String QUERY_FAVORITE_MOVIES_BUNDLE_EXTRA = "favorite_movies";
@@ -42,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
     private MovieAdapter mMovieAdapter;
     private LoaderManager mLoaderManager;
     private GridLayoutManager mGridLayoutManager;
+    private String mMovieSortOrder = DEFAULT_SORT_ORDER;
 
     // This is used to determine which loader to keep alive when navigating to movieDetailActivity.
     private boolean mCurrentlyShowingFavorites = false;
@@ -60,7 +64,6 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         mMovieAdapter = new MovieAdapter(this);
         movieRecyclerView.setAdapter(mMovieAdapter);
 
-        fetchMoviesOnlyIfDeviceOnline(NetworkUtils.ENDPOINT_POPULAR_MOVIES);
     }
 
     // in portrait, grid will have 2 columns and in landscape grid will have 3.
@@ -74,6 +77,39 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
             gridLayoutManager = new GridLayoutManager(this, GRID_LAYOUT_SPAN_LANDSCAPE, GridLayoutManager.VERTICAL, false);
         }
         return gridLayoutManager;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(EXTRA_SORT_ORDER, mMovieSortOrder);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        mMovieSortOrder = savedInstanceState.getString(EXTRA_SORT_ORDER, DEFAULT_SORT_ORDER);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fetchMovies(mMovieSortOrder);
+    }
+
+    private void fetchMovies(String urlEndpoint) {
+
+        switch (urlEndpoint) {
+            case NetworkUtils.ENDPOINT_POPULAR_MOVIES:
+                fetchMoviesOnlyIfDeviceOnline(urlEndpoint);
+                break;
+            case NetworkUtils.ENDPOINT_TOP_RATED_MOVIES:
+                fetchMoviesOnlyIfDeviceOnline(urlEndpoint);
+                break;
+            case MovieContract.ENDPOINT_FAVORITE_MOVIES:
+                fetchFavoriteMovies();
+                break;
+        }
     }
 
     private void fetchMoviesOnlyIfDeviceOnline(String urlEndpoint) {
@@ -152,11 +188,14 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
 
         if (id == R.id.action_sort_popular) {
             fetchMoviesOnlyIfDeviceOnline(NetworkUtils.ENDPOINT_POPULAR_MOVIES);
+            mMovieSortOrder = NetworkUtils.ENDPOINT_POPULAR_MOVIES;
             return true;
         } else if (id == R.id.action_sort_top_rated) {
             fetchMoviesOnlyIfDeviceOnline(NetworkUtils.ENDPOINT_TOP_RATED_MOVIES);
+            mMovieSortOrder = NetworkUtils.ENDPOINT_TOP_RATED_MOVIES;
             return true;
         } else if (id == R.id.action_favorites) {
+            mMovieSortOrder = MovieContract.ENDPOINT_FAVORITE_MOVIES;
             mCurrentlyShowingFavorites = true;
             fetchFavoriteMovies();
             return true;
@@ -172,7 +211,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         mLoaderManager.restartLoader(FAVORITE_MOVIES_LOADER_ID, queryBundle, new FavoriteMoviesCallback());
     }
 
-    private class FavoriteMoviesCallback implements LoaderManager.LoaderCallbacks<Cursor>{
+    private class FavoriteMoviesCallback implements LoaderManager.LoaderCallbacks<Cursor> {
 
         @Override
         public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -243,13 +282,16 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
     }
 
     // we are destroying loaders because they will both automatically be called upon return to main activity
-    private void destroyLoaders(){
-        if(mLoaderManager != null){
-            mLoaderManager.destroyLoader(TMDB_MOVIE_LOADER_ID);
-            if(mCurrentlyShowingFavorites == false){
-                mLoaderManager.destroyLoader(FAVORITE_MOVIES_LOADER_ID);
-            }
-        }
+    private void destroyLoaders() {
+//        if (mLoaderManager != null) {
+//            mLoaderManager.destroyLoader(TMDB_MOVIE_LOADER_ID);
+//            if (mCurrentlyShowingFavorites == false) {
+//                mLoaderManager.destroyLoader(FAVORITE_MOVIES_LOADER_ID);
+//            }
+//        }
+        mLoaderManager.destroyLoader(TMDB_MOVIE_LOADER_ID);
+        mLoaderManager.destroyLoader(FAVORITE_MOVIES_LOADER_ID);
     }
+
 
 }
