@@ -1,20 +1,22 @@
 package com.example.zappalex.popularmovies.utilities;
-
 import android.content.Context;
+
+import java.text.Format;
 
 /**
  * Created by user on 6/20/17.
  * This is a util class for formatting operations.
  */
 
-public class FormatUtils {
+public final class FormatUtils {
+
+    private FormatUtils() {}
 
     public static int getDeviceOrientation(Context context){
         return context.getResources().getConfiguration().orientation;
     }
 
     public static String getFormattedRating(String rating){
-
         return rating + " / " + "10";
     }
 
