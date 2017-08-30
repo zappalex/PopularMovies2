@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
-import android.net.Network;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
@@ -16,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.zappalex.popularmovies.adapters.MovieAdapter;
@@ -35,20 +35,24 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
     private static final int GRID_LAYOUT_SPAN_PORTRAIT = 2;
     private static final int GRID_LAYOUT_SPAN_LANDSCAPE = 3;
 
-    private static final String DEFAULT_SORT_ORDER = NetworkUtils.ENDPOINT_POPULAR_MOVIES;
+    private static final String EXTRA_POSITION_INDEX = "position_index";
+    private static final String EXTRA_TOP_VIEW = "top_view";
     private static final String EXTRA_SORT_ORDER = "sort_order";
+    private static final String DEFAULT_SORT_ORDER = NetworkUtils.ENDPOINT_POPULAR_MOVIES;
+
     private static final String QUERY_TMDB_MOVIE_BUNDLE_EXTRA = "tmdb_movie_query";
     private static final int TMDB_MOVIE_LOADER_ID = 455;
     private static final String QUERY_FAVORITE_MOVIES_BUNDLE_EXTRA = "favorite_movies";
     private static final int FAVORITE_MOVIES_LOADER_ID = 456;
 
-    private MovieAdapter mMovieAdapter;
     private LoaderManager mLoaderManager;
+    private RecyclerView mMovieRecyclerView;
     private GridLayoutManager mGridLayoutManager;
+    private MovieAdapter mMovieAdapter;
     private String mMovieSortOrder = DEFAULT_SORT_ORDER;
 
-    // This is used to determine which loader to keep alive when navigating to movieDetailActivity.
-    private boolean mCurrentlyShowingFavorites = false;
+    private int mScrollIndex = 0;
+    private int mScrollOffset = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +61,12 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
 
         mLoaderManager = getSupportLoaderManager();
 
-        RecyclerView movieRecyclerView = (RecyclerView) findViewById(R.id.rv_movie_list);
+        mMovieRecyclerView = (RecyclerView) findViewById(R.id.rv_movie_list);
         mGridLayoutManager = initializeGridLayoutManager();
-        movieRecyclerView.setLayoutManager(mGridLayoutManager);
+        mMovieRecyclerView.setLayoutManager(mGridLayoutManager);
 
         mMovieAdapter = new MovieAdapter(this);
-        movieRecyclerView.setAdapter(mMovieAdapter);
+        mMovieRecyclerView.setAdapter(mMovieAdapter);
 
     }
 
@@ -80,14 +84,31 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        saveScrollInfo();
+    }
+
+    private void saveScrollInfo(){
+        mScrollIndex = mGridLayoutManager.findFirstVisibleItemPosition();
+        View startView = mMovieRecyclerView.getChildAt(0);
+        mScrollOffset = (startView == null) ? 0 : (startView.getTop() - mMovieRecyclerView.getPaddingTop());
+    }
+
+
+    @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        outState.putInt(EXTRA_POSITION_INDEX, mScrollIndex);
+        outState.putInt(EXTRA_TOP_VIEW, mScrollOffset);
         outState.putString(EXTRA_SORT_ORDER, mMovieSortOrder);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+        mScrollIndex = savedInstanceState.getInt(EXTRA_POSITION_INDEX);
+        mScrollOffset = savedInstanceState.getInt(EXTRA_TOP_VIEW);
         mMovieSortOrder = savedInstanceState.getString(EXTRA_SORT_ORDER, DEFAULT_SORT_ORDER);
     }
 
@@ -168,9 +189,15 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
     private void displayMoviesInGridLayout(ArrayList<Movie> moviesList) {
         if (moviesList != null) {
             mMovieAdapter.setMovieList(moviesList);
-            mGridLayoutManager.scrollToPositionWithOffset(0, 0);
+            scrollToSavedPositionWithOffset();
         } else {
             Toast.makeText(this, getString(R.string.msg_movie_service_error), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void scrollToSavedPositionWithOffset(){
+        if ( mScrollIndex != -1 ) {
+            mGridLayoutManager.scrollToPositionWithOffset(mScrollIndex, mScrollOffset);
         }
     }
 
@@ -184,7 +211,6 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        mCurrentlyShowingFavorites = false;
 
         if (id == R.id.action_sort_popular) {
             fetchMoviesOnlyIfDeviceOnline(NetworkUtils.ENDPOINT_POPULAR_MOVIES);
@@ -196,7 +222,6 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
             return true;
         } else if (id == R.id.action_favorites) {
             mMovieSortOrder = MovieContract.ENDPOINT_FAVORITE_MOVIES;
-            mCurrentlyShowingFavorites = true;
             fetchFavoriteMovies();
             return true;
         }
@@ -281,17 +306,9 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         startActivity(intentStartMovieDetail);
     }
 
-    // we are destroying loaders because they will both automatically be called upon return to main activity
     private void destroyLoaders() {
-//        if (mLoaderManager != null) {
-//            mLoaderManager.destroyLoader(TMDB_MOVIE_LOADER_ID);
-//            if (mCurrentlyShowingFavorites == false) {
-//                mLoaderManager.destroyLoader(FAVORITE_MOVIES_LOADER_ID);
-//            }
-//        }
         mLoaderManager.destroyLoader(TMDB_MOVIE_LOADER_ID);
         mLoaderManager.destroyLoader(FAVORITE_MOVIES_LOADER_ID);
     }
-
 
 }
