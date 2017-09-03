@@ -1,12 +1,14 @@
 package com.example.zappalex.popularmovies;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,12 +36,13 @@ import java.util.ArrayList;
 
 public class MovieDetailActivity extends AppCompatActivity implements VideoAdapter.VideoAdapterOnClickHandler {
 
+    private static final String EXTRA_SCROLL_POSITION = "scroll_position";
     private static final String VIDEOS_QUERY_BUNDLE_EXTRA = "videos_query";
     private static final String REVIEWS_QUERY_BUNDLE_EXTRA = "reviews_query";
     private static final int VIDEOS_LOADER_ID = 56;
     private static final int REVIEWS_LOADER_ID = 57;
 
-
+    private NestedScrollView mMovieDetailNestedScrollView;
     private TextView mMovieTitleTextView;
     private ImageView mMoviePosterImg;
     private TextView mMovieDateTextView;
@@ -69,6 +72,7 @@ public class MovieDetailActivity extends AppCompatActivity implements VideoAdapt
     }
 
     private void initUiComponents() {
+        mMovieDetailNestedScrollView = (NestedScrollView) findViewById(R.id.movie_detail_nested_scroll);
         mMovieTitleTextView = (TextView) findViewById(R.id.tv_title_movie);
         mMoviePosterImg = (ImageView) findViewById(R.id.img_movie_poster);
         mMovieDateTextView = (TextView) findViewById(R.id.tv_movie_date);
@@ -111,7 +115,6 @@ public class MovieDetailActivity extends AppCompatActivity implements VideoAdapt
         } else {
             Toast.makeText(this, getString(R.string.msg_movie_detail_error), Toast.LENGTH_LONG).show();
         }
-
     }
 
     private void populateViews(Movie movie) {
@@ -130,7 +133,7 @@ public class MovieDetailActivity extends AppCompatActivity implements VideoAdapt
             queryBundle.putString(VIDEOS_QUERY_BUNDLE_EXTRA, videosEndpoint);
 
             LoaderManager loaderManager = getSupportLoaderManager();
-            loaderManager.restartLoader(VIDEOS_LOADER_ID, queryBundle, new VideosCallback());
+            loaderManager.initLoader(VIDEOS_LOADER_ID, queryBundle, new VideosCallback());
 
         } else {
             Toast.makeText(this, getString(R.string.msg_videos_offline), Toast.LENGTH_LONG).show();
@@ -143,52 +146,17 @@ public class MovieDetailActivity extends AppCompatActivity implements VideoAdapt
             queryBundle.putString(REVIEWS_QUERY_BUNDLE_EXTRA, reviewsEndpoint);
 
             LoaderManager loaderManager = getSupportLoaderManager();
-            loaderManager.restartLoader(REVIEWS_LOADER_ID, queryBundle, new ReviewsCallback());
+            loaderManager.initLoader(REVIEWS_LOADER_ID, queryBundle, new ReviewsCallback());
         } else {
             Toast.makeText(this, getString(R.string.msg_reviews_offline), Toast.LENGTH_LONG).show();
         }
     }
 
-
     private class VideosCallback implements LoaderManager.LoaderCallbacks<ArrayList<Video>> {
         @Override
         public Loader<ArrayList<Video>> onCreateLoader(int id, final Bundle args) {
-            return new AsyncTaskLoader<ArrayList<Video>>(getBaseContext()) {
-
-                // @ Geovani : this is the variable that does not seem to be caching upon rotation.
-                ArrayList<Video> mCachedVideos;
-
-                @Override
-                protected void onStartLoading() {
-                    if(mCachedVideos != null){
-                       deliverResult(mCachedVideos);
-                    }else{
-                        forceLoad();
-                    }
-                }
-
-                @Override
-                public ArrayList<Video> loadInBackground() {
-                    String videosRequestEndpoint = args.getString(VIDEOS_QUERY_BUNDLE_EXTRA);
-                    URL videosRequestUrl = NetworkUtils.buildTmdbUrlWithPathEndpoint(videosRequestEndpoint);
-
-                    if (videosRequestUrl != null) {
-                        try {
-                            String jsonVideosString = NetworkUtils.getResponseFromHttpUrl(videosRequestUrl);
-                            return TheMovieDbJsonUtils.getVideoListFromJsonString(jsonVideosString);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    return null;
-                }
-
-                @Override
-                public void deliverResult(ArrayList<Video> data) {
-                    mCachedVideos = data;
-                    super.deliverResult(data);
-                }
-            };
+            String videosEndpoint = args.getString(VIDEOS_QUERY_BUNDLE_EXTRA);
+            return new VideoAsyncTaskLoader(MovieDetailActivity.this, videosEndpoint);
         }
 
         @Override
@@ -204,33 +172,51 @@ public class MovieDetailActivity extends AppCompatActivity implements VideoAdapt
         }
     }
 
+    private static class VideoAsyncTaskLoader extends AsyncTaskLoader<ArrayList<Video>> {
+
+        private ArrayList<Video> mCachedVideos;
+        private String mVideosEndpoint = "";
+
+        public VideoAsyncTaskLoader (Context context, String videosEndpoint){
+            super(context);
+            mVideosEndpoint = videosEndpoint;
+        }
+
+        @Override
+        protected void onStartLoading() {
+            if (mCachedVideos != null) {
+                deliverResult(mCachedVideos);
+            } else {
+                forceLoad();
+            }
+        }
+
+        @Override
+        public ArrayList<Video> loadInBackground() {
+            URL videosRequestUrl = NetworkUtils.buildTmdbUrlWithPathEndpoint(mVideosEndpoint);
+            if (videosRequestUrl != null) {
+                try {
+                    String jsonVideosString = NetworkUtils.getResponseFromHttpUrl(videosRequestUrl);
+                    return TheMovieDbJsonUtils.getVideoListFromJsonString(jsonVideosString);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+
+        @Override
+        public void deliverResult(ArrayList<Video> data) {
+            mCachedVideos = data;
+            super.deliverResult(data);
+        }
+    }
+
     private class ReviewsCallback implements LoaderManager.LoaderCallbacks<ArrayList<Review>> {
         @Override
         public Loader<ArrayList<Review>> onCreateLoader(int id, final Bundle args) {
-            return new AsyncTaskLoader<ArrayList<Review>>(getBaseContext()) {
-
-                @Override
-                protected void onStartLoading() {
-                    super.onStartLoading();
-                    forceLoad();
-                }
-
-                @Override
-                public ArrayList<Review> loadInBackground() {
-                    String reviewsRequestEndpoint = args.getString(REVIEWS_QUERY_BUNDLE_EXTRA);
-                    URL reviewsRequestUrl = NetworkUtils.buildTmdbUrlWithPathEndpoint(reviewsRequestEndpoint);
-
-                    if (reviewsRequestEndpoint != null) {
-                        try {
-                            String jsonReviewsString = NetworkUtils.getResponseFromHttpUrl(reviewsRequestUrl);
-                            return TheMovieDbJsonUtils.getReviewListFromJsonString(jsonReviewsString);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    return null;
-                }
-            };
+           String reviewsEndpoint = args.getString(REVIEWS_QUERY_BUNDLE_EXTRA);
+            return new ReviewsAsyncTaskLoader(MovieDetailActivity.this, reviewsEndpoint);
         }
 
         @Override
@@ -242,9 +228,50 @@ public class MovieDetailActivity extends AppCompatActivity implements VideoAdapt
 
         @Override
         public void onLoaderReset(Loader<ArrayList<Review>> loader) {
-
         }
     }
+
+    private static class ReviewsAsyncTaskLoader extends AsyncTaskLoader<ArrayList<Review>>{
+
+        private ArrayList<Review> mCachedReviews;
+        private String mReviewsEndpoint = "";
+
+        public ReviewsAsyncTaskLoader(Context context, String reviewsEndpoint){
+            super(context);
+            mReviewsEndpoint = reviewsEndpoint;
+        }
+
+        @Override
+        protected void onStartLoading() {
+            super.onStartLoading();
+
+            if(mCachedReviews != null){
+                deliverResult(mCachedReviews);
+            }else{
+                forceLoad();
+            }
+        }
+
+        @Override
+        public ArrayList<Review> loadInBackground() {
+            URL reviewsRequestUrl = NetworkUtils.buildTmdbUrlWithPathEndpoint(mReviewsEndpoint);
+            if (reviewsRequestUrl != null) {
+                try {
+                    String jsonReviewsString = NetworkUtils.getResponseFromHttpUrl(reviewsRequestUrl);
+                    return TheMovieDbJsonUtils.getReviewListFromJsonString(jsonReviewsString);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+
+        @Override
+        public void deliverResult(ArrayList<Review> data) {
+            mCachedReviews = data;
+            super.deliverResult(data);
+        }
+    };
 
     @Override
     public void onCLick(int position) {
@@ -290,6 +317,22 @@ public class MovieDetailActivity extends AppCompatActivity implements VideoAdapt
         } else {
             mMovieFavoriteImageView.setImageResource(R.drawable.heart_grey);
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        int scrollPosition = mMovieDetailNestedScrollView.getScrollY();
+        outState.putInt(EXTRA_SCROLL_POSITION, scrollPosition);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        int scrollPosition = savedInstanceState.getInt(EXTRA_SCROLL_POSITION);
+        mMovieDetailNestedScrollView.scrollTo(0, scrollPosition);
     }
 
     public void onFavoriteClick(View view) {

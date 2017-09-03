@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
     private static final int GRID_LAYOUT_SPAN_PORTRAIT = 2;
     private static final int GRID_LAYOUT_SPAN_LANDSCAPE = 3;
 
-    private static final String EXTRA_POSITION_INDEX = "position_index";
-    private static final String EXTRA_TOP_VIEW = "top_view";
+    private static final String EXTRA_SCROLL_INDEX = "scroll_index";
+    private static final String EXTRA_SCROLL_OFFSET = "scroll_offset";
     private static final String EXTRA_SORT_ORDER = "sort_order";
     private static final String DEFAULT_SORT_ORDER = NetworkUtils.ENDPOINT_POPULAR_MOVIES;
 
@@ -99,16 +99,16 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(EXTRA_POSITION_INDEX, mScrollIndex);
-        outState.putInt(EXTRA_TOP_VIEW, mScrollOffset);
+        outState.putInt(EXTRA_SCROLL_INDEX, mScrollIndex);
+        outState.putInt(EXTRA_SCROLL_OFFSET, mScrollOffset);
         outState.putString(EXTRA_SORT_ORDER, mMovieSortOrder);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        mScrollIndex = savedInstanceState.getInt(EXTRA_POSITION_INDEX);
-        mScrollOffset = savedInstanceState.getInt(EXTRA_TOP_VIEW);
+        mScrollIndex = savedInstanceState.getInt(EXTRA_SCROLL_INDEX);
+        mScrollOffset = savedInstanceState.getInt(EXTRA_SCROLL_OFFSET);
         mMovieSortOrder = savedInstanceState.getString(EXTRA_SORT_ORDER, DEFAULT_SORT_ORDER);
     }
 
@@ -306,6 +306,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         startActivity(intentStartMovieDetail);
     }
 
+    // Loaders must be destroyed when going to child activity, or they will both automatically be called upon return.
     private void destroyLoaders() {
         mLoaderManager.destroyLoader(TMDB_MOVIE_LOADER_ID);
         mLoaderManager.destroyLoader(FAVORITE_MOVIES_LOADER_ID);
