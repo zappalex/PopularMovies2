@@ -114,5 +114,47 @@ public class NetworkUtils {
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
+    public static String getApiKey() {
+        return API_KEY;
+    }
 
+    public static String getBaseMovieUrl() {
+        return BASE_MOVIE_URL;
+    }
+
+    public static String getBasePicassoUrl() {
+        return BASE_PICASSO_URL;
+    }
+
+    public static String getBaseYoutubeUrl() {
+        return BASE_YOUTUBE_URL;
+    }
+
+    public static String getEndpointPopularMovies() {
+        return ENDPOINT_POPULAR_MOVIES;
+    }
+
+    public static String getEndpointTopRatedMovies() {
+        return ENDPOINT_TOP_RATED_MOVIES;
+    }
+
+    public static String getEndpointVideos() {
+        return ENDPOINT_VIDEOS;
+    }
+
+    public static String getEndpointReviews() {
+        return ENDPOINT_REVIEWS;
+    }
+
+    public static String getApiKeyParam() {
+        return API_KEY_PARAM;
+    }
+
+    public static String getYoutubeVideoKeyParam() {
+        return YOUTUBE_VIDEO_KEY_PARAM;
+    }
+
+    public static String getImgSizeW342() {
+        return IMG_SIZE_W342;
+    }
 }
