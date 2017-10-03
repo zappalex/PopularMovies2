@@ -14,16 +14,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ed419762-8fa0-4ed2-b914-c0325c34b870" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/test/java/com/example/zappalex/popularmovies/ExampleUnitTest.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/zappalex/popularmovies/utilities/NetworkUtils.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/zappalex/popularmovies/utilities/NetworkUtils.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/test/java/com/example/zappalex/popularmovies/NetworkUtilsTest.java" afterPath="$PROJECT_DIR$/app/src/test/java/com/example/zappalex/popularmovies/NetworkUtilsTest.java" />
     </list>
     <ignored path="PopularMovies2.iws" />
@@ -68,15 +65,18 @@
     <favorites_list name="PopularMovies2" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.74105865">
+    <splitter split-orientation="horizontal" split-proportion="0.89617485">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="NetworkUtils.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/zappalex/popularmovies/utilities/NetworkUtils.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="447">
+                <state relative-caret-position="421">
                   <caret line="116" column="4" selection-start-line="116" selection-start-column="4" selection-end-line="116" selection-end-column="4" />
-                  <folding />
+                  <folding>
+                    <element signature="e#4089#4090#0" expanded="true" />
+                    <element signature="e#4119#4120#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -84,8 +84,8 @@
           <file leaf-file-name="NetworkUtilsTest.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/app/src/test/java/com/example/zappalex/popularmovies/NetworkUtilsTest.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="410">
-                  <caret line="52" column="1" selection-start-line="52" selection-start-column="1" selection-end-line="52" selection-end-column="1" />
+                <state relative-caret-position="272">
+                  <caret line="55" column="42" selection-start-line="55" selection-start-column="16" selection-end-line="55" selection-end-column="42" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -96,9 +96,13 @@
           <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/app/build.gradle">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="143">
-                  <caret line="11" column="8" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="8" />
-                  <folding />
+                <state relative-caret-position="156">
+                  <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+                  <folding>
+                    <marker date="1507033350000" expanded="true" signature="49:370" ph="{...}" />
+                    <marker date="1507033350000" expanded="true" signature="125:370" ph="{...}" />
+                    <marker date="1507033350000" expanded="true" signature="1204:1206" ph="{...}" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -106,7 +110,7 @@
           <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/zappalex/popularmovies/MainActivity.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="598">
+                <state relative-caret-position="2106">
                   <caret line="162" column="96" selection-start-line="162" selection-start-column="96" selection-end-line="162" selection-end-column="96" />
                   <folding>
                     <element signature="imports" expanded="true" />
@@ -118,34 +122,14 @@
         </leaf>
       </split-first>
       <split-second>
-        <leaf>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="NetworkUtils.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/zappalex/popularmovies/utilities/NetworkUtils.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="120">
+                <state relative-caret-position="1196">
                   <caret line="116" column="38" selection-start-line="116" selection-start-column="38" selection-end-line="116" selection-end-column="38" />
                   <folding>
                     <element signature="e#4119#4120#0" expanded="true" />
-                    <element signature="e#4165#4166#0" expanded="true" />
-                    <element signature="e#4202#4203#0" expanded="true" />
-                    <element signature="e#4250#4251#0" expanded="true" />
-                    <element signature="e#4289#4290#0" expanded="true" />
-                    <element signature="e#4337#4338#0" expanded="true" />
-                    <element signature="e#4376#4377#0" expanded="true" />
-                    <element signature="e#4431#4432#0" expanded="true" />
-                    <element signature="e#4477#4478#0" expanded="true" />
-                    <element signature="e#4533#4534#0" expanded="true" />
-                    <element signature="e#4581#4582#0" expanded="true" />
-                    <element signature="e#4629#4630#0" expanded="true" />
-                    <element signature="e#4667#4668#0" expanded="true" />
-                    <element signature="e#4716#4717#0" expanded="true" />
-                    <element signature="e#4755#4756#0" expanded="true" />
-                    <element signature="e#4800#4801#0" expanded="true" />
-                    <element signature="e#4836#4837#0" expanded="true" />
-                    <element signature="e#4890#4891#0" expanded="true" />
-                    <element signature="e#4936#4937#0" expanded="true" />
-                    <element signature="e#4981#4982#0" expanded="true" />
-                    <element signature="e#5017#5018#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -2063,10 +2047,12 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="AndroidView">
         <subPane />
       </pane>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -2149,8 +2135,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2622,12 +2606,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="NetworkUtilsTest - 2017.10.03 at 07h 57m 18s.xml">
-      <configuration name="NetworkUtilsTest" configurationId="AndroidJUnit" />
-    </history-entry>
-    <history-entry file="NetworkUtilsTest - 2017.10.03 at 08h 02m 53s.xml">
-      <configuration name="NetworkUtilsTest" configurationId="AndroidJUnit" />
-    </history-entry>
     <history-entry file="NetworkUtilsTest - 2017.10.03 at 08h 07m 10s.xml">
       <configuration name="NetworkUtilsTest" configurationId="AndroidJUnit" />
     </history-entry>
@@ -2635,6 +2613,12 @@
       <configuration name="NetworkUtilsTest" configurationId="AndroidJUnit" />
     </history-entry>
     <history-entry file="NetworkUtilsTest - 2017.10.03 at 08h 13m 54s.xml">
+      <configuration name="NetworkUtilsTest" configurationId="AndroidJUnit" />
+    </history-entry>
+    <history-entry file="NetworkUtilsTest - 2017.10.03 at 08h 30m 25s.xml">
+      <configuration name="NetworkUtilsTest" configurationId="AndroidJUnit" />
+    </history-entry>
+    <history-entry file="NetworkUtilsTest - 2017.10.03 at 08h 32m 00s.xml">
       <configuration name="NetworkUtilsTest" configurationId="AndroidJUnit" />
     </history-entry>
     <history-entry file="popularmovies_in_app - 2017.09.30 at 11h 17m 10s.xml">
@@ -2664,13 +2648,13 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32893" sideWeight="0.5028612" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.72391015" sideWeight="0.49713877" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27608982" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28665787" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22532189" sideWeight="0.48348746" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21459228" sideWeight="0.48348746" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32960597" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -2710,7 +2694,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="169">
           <caret line="23" column="75" selection-start-line="23" selection-start-column="75" selection-end-line="23" selection-end-column="75" />
-          <folding />
+          <folding>
+            <element signature="e#4089#4090#0" expanded="true" />
+            <element signature="e#4119#4120#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2766,7 +2753,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="23" column="75" selection-start-line="23" selection-start-column="75" selection-end-line="23" selection-end-column="75" />
-          <folding />
+          <folding>
+            <element signature="e#4089#4090#0" expanded="true" />
+            <element signature="e#4119#4120#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2819,7 +2809,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="169">
           <caret line="23" column="43" selection-start-line="23" selection-start-column="43" selection-end-line="23" selection-end-column="43" />
-          <folding />
+          <folding>
+            <element signature="e#4089#4090#0" expanded="true" />
+            <element signature="e#4119#4120#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2872,7 +2865,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="23" column="43" selection-start-line="23" selection-start-column="43" selection-end-line="23" selection-end-column="43" />
-          <folding />
+          <folding>
+            <element signature="e#4089#4090#0" expanded="true" />
+            <element signature="e#4119#4120#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2926,7 +2922,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#4089#4090#0" expanded="true" />
+            <element signature="e#4119#4120#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2944,7 +2943,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="130">
           <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
-          <folding />
+          <folding>
+            <element signature="e#4089#4090#0" expanded="true" />
+            <element signature="e#4119#4120#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2962,7 +2964,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="130">
           <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
-          <folding />
+          <folding>
+            <element signature="e#4089#4090#0" expanded="true" />
+            <element signature="e#4119#4120#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -3091,25 +3096,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/test/java/com/example/zappalex/popularmovies/ExampleUnitTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="16" column="1" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/test/java/com/example/zappalex/popularmovies/ExampleUnitTest.java" />
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="11" column="8" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="8" />
-          <folding />
+        <state relative-caret-position="156">
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding>
+            <marker date="1507033350000" expanded="true" signature="49:370" ph="{...}" />
+            <marker date="1507033350000" expanded="true" signature="125:370" ph="{...}" />
+            <marker date="1507033350000" expanded="true" signature="1204:1206" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/zappalex/popularmovies/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="598">
+        <state relative-caret-position="2106">
           <caret line="162" column="96" selection-start-line="162" selection-start-column="96" selection-end-line="162" selection-end-column="96" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -3119,16 +3121,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/zappalex/popularmovies/utilities/NetworkUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="447">
+        <state relative-caret-position="421">
           <caret line="116" column="4" selection-start-line="116" selection-start-column="4" selection-end-line="116" selection-end-column="4" />
-          <folding />
+          <folding>
+            <element signature="e#4089#4090#0" expanded="true" />
+            <element signature="e#4119#4120#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/test/java/com/example/zappalex/popularmovies/NetworkUtilsTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="52" column="1" selection-start-line="52" selection-start-column="1" selection-end-line="52" selection-end-column="1" />
+        <state relative-caret-position="272">
+          <caret line="55" column="42" selection-start-line="55" selection-start-column="16" selection-end-line="55" selection-end-column="42" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
