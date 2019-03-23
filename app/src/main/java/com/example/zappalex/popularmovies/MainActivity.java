@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
     // in portrait, grid will have 2 columns and in landscape grid will have 3.
     private GridLayoutManager initializeGridLayoutManager() {
         GridLayoutManager gridLayoutManager;
-        int deviceOrientation = FormatUtils.getDeviceOrientation(this);
+        int deviceOrientation = FormatUtils.INSTANCE.getDeviceOrientation(this);
 
         if (deviceOrientation == Configuration.ORIENTATION_PORTRAIT) {
             gridLayoutManager = new GridLayoutManager(this, GRID_LAYOUT_SPAN_PORTRAIT, GridLayoutManager.VERTICAL, false);

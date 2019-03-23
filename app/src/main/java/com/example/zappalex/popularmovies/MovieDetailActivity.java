@@ -119,8 +119,8 @@ public class MovieDetailActivity extends AppCompatActivity implements VideoAdapt
 
     private void populateViews(Movie movie) {
         mMovieTitleTextView.setText(movie.getTitle());
-        mMovieDateTextView.setText(FormatUtils.getYearFromDateString(movie.getReleaseDate()));
-        mMovieRatingTextView.setText(FormatUtils.getFormattedRating(movie.getUserRating()));
+        mMovieDateTextView.setText(FormatUtils.INSTANCE.getYearFromDateString(movie.getReleaseDate()));
+        mMovieRatingTextView.setText(FormatUtils.INSTANCE.getFormattedRating(movie.getUserRating()));
         mMovieOverviewTextView.setText(movie.getOverview());
 
         String picassoImgUrl = NetworkUtils.buildPicassoUrl(movie.getPosterPath());
