@@ -278,13 +278,14 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         ArrayList<Movie> movieList = new ArrayList<>();
         try {
             while (favoritesCursor.moveToNext()) {
-                Movie currentMovie = new Movie();
-                currentMovie.setId(favoritesCursor.getString(favoritesCursor.getColumnIndex(MovieContract.FavoriteMovieEntry.COLUMN_ID)));
-                currentMovie.setTitle(favoritesCursor.getString(favoritesCursor.getColumnIndex(MovieContract.FavoriteMovieEntry.COLUMN_TITLE)));
-                currentMovie.setPosterPath(favoritesCursor.getString(favoritesCursor.getColumnIndex(MovieContract.FavoriteMovieEntry.COLUMN_POSTER_PATH)));
-                currentMovie.setOverview(favoritesCursor.getString(favoritesCursor.getColumnIndex(MovieContract.FavoriteMovieEntry.COLUMN_OVERVIEW)));
-                currentMovie.setUserRating(favoritesCursor.getString(favoritesCursor.getColumnIndex(MovieContract.FavoriteMovieEntry.COLUMN_USER_RATING)));
-                currentMovie.setReleaseDate(favoritesCursor.getString(favoritesCursor.getColumnIndex(MovieContract.FavoriteMovieEntry.COLUMN_RELEASE_DATE)));
+                String id = favoritesCursor.getString(favoritesCursor.getColumnIndex(MovieContract.FavoriteMovieEntry.COLUMN_ID));
+                String title = favoritesCursor.getString(favoritesCursor.getColumnIndex(MovieContract.FavoriteMovieEntry.COLUMN_TITLE));
+                String posterPath = favoritesCursor.getString(favoritesCursor.getColumnIndex(MovieContract.FavoriteMovieEntry.COLUMN_POSTER_PATH));
+                String overview = favoritesCursor.getString(favoritesCursor.getColumnIndex(MovieContract.FavoriteMovieEntry.COLUMN_OVERVIEW));
+                String userRating = favoritesCursor.getString(favoritesCursor.getColumnIndex(MovieContract.FavoriteMovieEntry.COLUMN_USER_RATING));
+                String releaseDate = favoritesCursor.getString(favoritesCursor.getColumnIndex(MovieContract.FavoriteMovieEntry.COLUMN_RELEASE_DATE));
+
+                Movie currentMovie = new Movie(id, title, posterPath, overview, userRating, releaseDate);
                 movieList.add(currentMovie);
             }
         } catch (Exception e) {

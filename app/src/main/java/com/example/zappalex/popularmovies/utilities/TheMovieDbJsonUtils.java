@@ -40,15 +40,15 @@ public class TheMovieDbJsonUtils {
 
         JSONArray moviesArray = jsonMoviesObject.getJSONArray(TMDB_RESULTS);
         for(int i=0; i<moviesArray.length(); i++){
-            Movie currentMovie = new Movie();
             JSONObject jsonMovie = moviesArray.getJSONObject(i);
-
-            currentMovie.setId(jsonMovie.getString(TMDB_ID));
-            currentMovie.setTitle(jsonMovie.getString(TMDB_TITLE));
-            currentMovie.setPosterPath(jsonMovie.getString(TMDB_POSTER_PATH));
-            currentMovie.setOverview(jsonMovie.getString(TMDB_OVERVIEW));
-            currentMovie.setUserRating(jsonMovie.getString(TMDB_USER_RATING));
-            currentMovie.setReleaseDate(jsonMovie.getString(TMDB_RELEASE_DATE));
+            Movie currentMovie = new Movie(
+                    jsonMovie.getString(TMDB_ID),
+                    jsonMovie.getString(TMDB_TITLE),
+                    jsonMovie.getString(TMDB_POSTER_PATH),
+                    jsonMovie.getString(TMDB_OVERVIEW),
+                    jsonMovie.getString(TMDB_USER_RATING),
+                    jsonMovie.getString(TMDB_RELEASE_DATE)
+            );
 
             movieList.add(currentMovie);
         }
