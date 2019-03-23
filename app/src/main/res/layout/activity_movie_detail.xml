@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView
-    android:id="@+id/movie_detail_nested_scroll"
+    android:id="@+id/movieDetailScrollView"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tv_title_movie"
+            android:id="@+id/movieTitleTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@color/light_grey"
@@ -29,7 +29,7 @@
             tools:text="@string/placeholder_movie_title"/>
 
         <ImageView
-            android:id="@+id/img_movie_poster"
+            android:id="@+id/moviePosterImg"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/spacing_horizontal_medium"
@@ -38,34 +38,34 @@
             android:contentDescription="@string/description_movie_poster"
             android:gravity="center"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/tv_movie_date"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title_movie"/>
+            app:layout_constraintRight_toLeftOf="@+id/movieDateTextView"
+            app:layout_constraintTop_toBottomOf="@+id/movieTitleTextView"/>
 
         <TextView
-            android:id="@+id/tv_movie_date"
+            android:id="@+id/movieDateTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/spacing_horizontal_medium"
             android:layout_marginRight="@dimen/spacing_horizontal_medium"
             android:layout_marginTop="@dimen/spacing_vertical_medium"
             android:textSize="@dimen/text_movie_detail_large"
-            app:layout_constraintLeft_toRightOf="@+id/img_movie_poster"
+            app:layout_constraintLeft_toRightOf="@+id/moviePosterImg"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title_movie"
+            app:layout_constraintTop_toBottomOf="@+id/movieTitleTextView"
             tools:text="@string/placeholder_movie_year"/>
 
         <TextView
-            android:id="@+id/tv_rating"
+            android:id="@+id/ratingTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_vertical_small"
-            app:layout_constraintLeft_toLeftOf="@+id/tv_movie_date"
-            app:layout_constraintTop_toBottomOf="@+id/tv_movie_date"
+            app:layout_constraintLeft_toLeftOf="@+id/movieDateTextView"
+            app:layout_constraintTop_toBottomOf="@+id/movieDateTextView"
             tools:text="@string/placeholder_movie_rating"/>
 
 
         <ImageView
-            android:id="@+id/iv_favorite"
+            android:id="@+id/favoriteImageView"
             android:layout_width="@dimen/height_favorite_icon_medium"
             android:layout_height="@dimen/height_favorite_icon_medium"
             android:layout_marginTop="@dimen/spacing_vertical_medium"
@@ -73,12 +73,12 @@
             android:clickable="true"
             android:contentDescription="@string/description_favorite_icon"
             android:onClick="onFavoriteClick"
-            app:layout_constraintLeft_toLeftOf="@+id/tv_rating"
-            app:layout_constraintTop_toBottomOf="@+id/tv_rating"
+            app:layout_constraintLeft_toLeftOf="@+id/ratingTextView"
+            app:layout_constraintTop_toBottomOf="@+id/ratingTextView"
             />
 
         <TextView
-            android:id="@+id/tv_movie_overview"
+            android:id="@+id/movieOverviewTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/spacing_horizontal_medium"
@@ -86,21 +86,21 @@
             android:layout_marginTop="@dimen/spacing_vertical_medium"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_movie_poster"
+            app:layout_constraintTop_toBottomOf="@+id/moviePosterImg"
             tools:text="@string/placeholder_movie_description"/>
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_videos"
+            android:id="@+id/videosRecyclerView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_vertical_medium"
             android:background="@color/white"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_movie_overview"/>
+            app:layout_constraintTop_toBottomOf="@+id/movieOverviewTextView"/>
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_reviews"
+            android:id="@+id/reviewsRecyclerView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/spacing_horizontal_medium"
@@ -108,7 +108,7 @@
             android:layout_marginTop="@dimen/spacing_vertical_medium"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rv_videos"/>
+            app:layout_constraintTop_toBottomOf="@+id/videosRecyclerView"/>
 
     </android.support.constraint.ConstraintLayout>
 </android.support.v4.widget.NestedScrollView>

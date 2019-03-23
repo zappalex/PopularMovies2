@@ -3,47 +3,11 @@
 
     <item
         is-multidex="true"
-        jar="/Users/aashworth/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-android-extensions-runtime/1.1.4-3/7ee9eaa2c7aadefa0152def291758026d249a32d/kotlin-android-extensions-runtime-1.1.4-3.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.3"
-        sha1="7ee9eaa2c7aadefa0152def291758026d249a32d">
-        <dex dex="/Users/aashworth/Desktop/PopularMovies2/app/build/intermediates/transforms/dex/debug/folders/1000/10/kotlin-android-extensions-runtime-1.1.4-3_04b864d1981d6fae706fbc6973b87f1ab75e497e/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/aashworth/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.3"
-        sha1="919f0dfe192fb4e063e7dacadee7f8bb9a2672a9">
-        <dex dex="/Users/aashworth/Desktop/PopularMovies2/app/build/intermediates/transforms/dex/debug/folders/1000/10/annotations-13.0_877cb5ccf97e029e03e7970883eb4a07b9b993cf/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/aashworth/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.1.4-3/7f07ece855a7d40d5ef430218593e92282ae2a74/kotlin-stdlib-1.1.4-3.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.3"
-        sha1="7f07ece855a7d40d5ef430218593e92282ae2a74">
-        <dex dex="/Users/aashworth/Desktop/PopularMovies2/app/build/intermediates/transforms/dex/debug/folders/1000/10/kotlin-stdlib-1.1.4-3_f68c13b937aedd005871d58f4d1235b138afe725/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/aashworth/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.12.0/b36f4a04584c0fb0d9af2d3401cdff8dacb1ea54/okhttp-3.12.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.3"
-        sha1="b36f4a04584c0fb0d9af2d3401cdff8dacb1ea54">
-        <dex dex="/Users/aashworth/Desktop/PopularMovies2/app/build/intermediates/transforms/dex/debug/folders/1000/10/okhttp-3.12.0_f56396bce44376fcd93b1979a87a268655ad5728/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/Users/aashworth/Desktop/PopularMovies2/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.3"
-        sha1="51c2e23e009c4221e51a4f5da81bfec6d1dc5243">
+        sha1="7e70f31e834aa30091d6853648ab2ec08c79c8a1">
         <dex dex="/Users/aashworth/Desktop/PopularMovies2/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_1aca6e8ab2693966a83eaebe4f3fa29b5386ee2f/classes.dex" />
     </item>
     <item
@@ -54,42 +18,6 @@
         revision="25.0.3"
         sha1="12920f9016b8b05acbc2af7cdc13cef6946fe7d3">
         <dex dex="/Users/aashworth/Desktop/PopularMovies2/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_ebc902ccf94bb5300504b87b53003dd995f0171c/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/aashworth/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/converter-gson/2.5.0/1c96fc5d0230f57d36cd09e2541d10829a3352a7/converter-gson-2.5.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.3"
-        sha1="1c96fc5d0230f57d36cd09e2541d10829a3352a7">
-        <dex dex="/Users/aashworth/Desktop/PopularMovies2/app/build/intermediates/transforms/dex/debug/folders/1000/10/converter-gson-2.5.0_706542198b359468c94ae5fcd35b06b80149d85a/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/aashworth/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.15.0/bc28b5a964c8f5721eb58ee3f3c47a9bcbf4f4d8/okio-1.15.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.3"
-        sha1="bc28b5a964c8f5721eb58ee3f3c47a9bcbf4f4d8">
-        <dex dex="/Users/aashworth/Desktop/PopularMovies2/app/build/intermediates/transforms/dex/debug/folders/1000/10/okio-1.15.0_fb058d973d1632ba3d76770948e9b7baf41fa8b2/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/aashworth/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.8.2/3edcfe49d2c6053a70a2a47e4e1c2f94998a49cf/gson-2.8.2.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.3"
-        sha1="3edcfe49d2c6053a70a2a47e4e1c2f94998a49cf">
-        <dex dex="/Users/aashworth/Desktop/PopularMovies2/app/build/intermediates/transforms/dex/debug/folders/1000/10/gson-2.8.2_aec58040a9871f04c243a0e3a2b50b20c691dac7/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/aashworth/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.5.0/713ce36037bf24a76a3974c05cb85c3f754b1cc3/retrofit-2.5.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.3"
-        sha1="713ce36037bf24a76a3974c05cb85c3f754b1cc3">
-        <dex dex="/Users/aashworth/Desktop/PopularMovies2/app/build/intermediates/transforms/dex/debug/folders/1000/10/retrofit-2.5.0_ecc33218e9a5e63fb23642d0ea7eb97f4a2c5e0a/classes.dex" />
     </item>
 
 </items>

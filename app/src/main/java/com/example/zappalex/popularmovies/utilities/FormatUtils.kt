@@ -9,21 +9,22 @@ import java.text.Format
  * This is a util class for formatting operations.
  */
 
-object FormatUtils {
+class FormatUtils {
+    companion object {
+        fun getDeviceOrientation(context: Context): Int {
+            return context.resources.configuration.orientation
+        }
 
-    fun getDeviceOrientation(context: Context): Int {
-        return context.resources.configuration.orientation
-    }
+        fun getFormattedRating(rating: String): String {
+            return "$rating / 10"
+        }
 
-    fun getFormattedRating(rating: String): String {
-        return "$rating / 10"
-    }
-
-    // Date will be given in "yyyy-MM-dd" format, we just need to take the first 4 characters.
-    fun getYearFromDateString(dateString: String): String {
-        val dateToReturn: String
-        dateToReturn = dateString.substring(0, 4)
-        return dateToReturn
+        // Date will be given in "yyyy-MM-dd" format, we just need to take the first 4 characters.
+        fun getYearFromDateString(dateString: String): String {
+            val dateToReturn: String
+            dateToReturn = dateString.substring(0, 4)
+            return dateToReturn
+        }
     }
 
 }
