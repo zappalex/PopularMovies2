@@ -6,10 +6,10 @@
     tools:context="com.example.zappalex.popularmovies.MainActivity">
 
     <android.support.v7.widget.RecyclerView
-        android:adjustViewBounds="true"
-        android:id="@+id/rv_movie_list"
+        android:id="@+id/movieRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:adjustViewBounds="true"
         android:background="@color/dark_grey">
 
     </android.support.v7.widget.RecyclerView>

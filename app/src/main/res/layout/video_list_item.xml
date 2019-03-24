@@ -9,7 +9,7 @@
               android:paddingTop="@dimen/spacing_horizontal_medium">
 
     <ImageView
-        android:id="@+id/btn_play"
+        android:id="@+id/playButton"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginLeft="@dimen/spacing_horizontal_large"
@@ -18,7 +18,7 @@
         />
 
     <TextView
-        android:id="@+id/tv_video_title"
+        android:id="@+id/videoTitleTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"

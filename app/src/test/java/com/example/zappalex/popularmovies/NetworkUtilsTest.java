@@ -40,7 +40,7 @@ public class NetworkUtilsTest {
     public void testTmdbUrlSingleEndpoint() {
         try {
             URL expectedUrl = new URL(TMDB_URL_SINGLE_ENDPOINT_POPULAR);
-            URL actualUrl = NetworkUtils.buildTmdbUrlWithPathEndpoint(NetworkUtils.ENDPOINT_POPULAR_MOVIES);
+            URL actualUrl = NetworkUtils.INSTANCE.buildTmdbUrlWithPathEndpoint(NetworkUtils.INSTANCE.getEndpointPopularMovies());
             assertEquals(expectedUrl, actualUrl);
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,7 +51,7 @@ public class NetworkUtilsTest {
     public void testTmdbUrlPathEndpoint(){
         try{
             URL expectedUrl = new URL(TMDB_URL_PATH_ENDPOINT);
-            URL actualUrl = NetworkUtils.buildTmdbUrlWithPathEndpoint(TEST_ENDPOINT);
+            URL actualUrl = NetworkUtils.INSTANCE.buildTmdbUrlWithPathEndpoint(TEST_ENDPOINT);
             assertEquals(expectedUrl, actualUrl);
         }catch(Exception e) {
             e.printStackTrace();
@@ -61,28 +61,28 @@ public class NetworkUtilsTest {
     @Test
     public void testYoutubeUriWithVideoKey() {
         Uri expectedUri = Uri.parse(YOUTUBE_URL_WITH_KEY);
-        Uri actualUri = NetworkUtils.buildYouTubeUriWithVideoKey(VIDEO_KEY);
+        Uri actualUri = NetworkUtils.INSTANCE.buildYouTubeUriWithVideoKey(VIDEO_KEY);
         assertEquals(expectedUri, actualUri);
     }
 
     @Test
     public void testFormatVideosEndpoint(){
         String expectedEndpoint = VIDEOS_ENDPOINT;
-        String actualEndpoint = NetworkUtils.formatVideosEndpointWithId(USER_ID);
+        String actualEndpoint = NetworkUtils.INSTANCE.formatVideosEndpointWithId(USER_ID);
         assertEquals(expectedEndpoint, actualEndpoint);
     }
 
     @Test
     public void testFormatReviewsEndpoint(){
         String expectedEndpoint = REVIEWS_ENDPOINT;
-        String actualEndpoint = NetworkUtils.formatReviewsEndpointWithId(USER_ID);
+        String actualEndpoint = NetworkUtils.INSTANCE.formatReviewsEndpointWithId(USER_ID);
         assertEquals(expectedEndpoint, actualEndpoint);
     }
 
     @Test
     public void testPicassoUrl(){
         String expectedPath = PICASSO_PATH;
-        String actualPath = NetworkUtils.buildPicassoUrl(POSTER_PATH);
+        String actualPath = NetworkUtils.INSTANCE.buildPicassoUrl(POSTER_PATH);
         assertEquals(expectedPath, actualPath);
     }
 

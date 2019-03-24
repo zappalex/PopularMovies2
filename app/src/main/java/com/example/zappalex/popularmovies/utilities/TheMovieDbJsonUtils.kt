@@ -34,7 +34,7 @@ class TheMovieDbJsonUtils {
         private val TMDB_REVIEW_URL = "url"
 
         @Throws(JSONException::class)
-        fun getMovieListFromJsonString(jsonMovieString: String): ArrayList<Movie> {
+        fun getMovieListFromJsonString(jsonMovieString: String?): ArrayList<Movie> {
             val movieList = ArrayList<Movie>()
             val jsonMoviesObject = JSONObject(jsonMovieString)
 
@@ -56,7 +56,7 @@ class TheMovieDbJsonUtils {
         }
 
         @Throws(JSONException::class)
-        fun getVideoListFromJsonString(jsonVideosString: String): ArrayList<Video> {
+        fun getVideoListFromJsonString(jsonVideosString: String?): ArrayList<Video> {
             val videosList = ArrayList<Video>()
             val jsonVideosObject = JSONObject(jsonVideosString)
 
@@ -77,7 +77,7 @@ class TheMovieDbJsonUtils {
         }
 
         @Throws(JSONException::class)
-        fun getReviewListFromJsonString(jsonReviewsString: String): ArrayList<Review> {
+        fun getReviewListFromJsonString(jsonReviewsString: String?): ArrayList<Review> {
             val reviewsList = ArrayList<Review>()
             val jsonReviewsObject = JSONObject(jsonReviewsString)
 

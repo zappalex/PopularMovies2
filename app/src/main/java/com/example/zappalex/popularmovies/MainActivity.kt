@@ -11,11 +11,8 @@ import android.support.v4.content.Loader
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 
 import com.example.zappalex.popularmovies.adapters.MovieAdapter
@@ -24,39 +21,33 @@ import com.example.zappalex.popularmovies.models.Movie
 import com.example.zappalex.popularmovies.utilities.FormatUtils
 import com.example.zappalex.popularmovies.utilities.NetworkUtils
 import com.example.zappalex.popularmovies.utilities.TheMovieDbJsonUtils
+import kotlinx.android.synthetic.main.activity_main.*
 
-import java.net.URL
 import java.util.ArrayList
 
 class MainActivity : AppCompatActivity(), MovieAdapter.MovieAdapterOnClickHandler {
 
-    private var mLoaderManager: LoaderManager? = null
-    private var mMovieRecyclerView: RecyclerView? = null
-    private var mGridLayoutManager: GridLayoutManager? = null
-    private var mMovieAdapter: MovieAdapter? = null
-    private var mMovieSortOrder = DEFAULT_SORT_ORDER
+    private val loaderManager = supportLoaderManager
+    private var gridLayoutManager: GridLayoutManager? = null
+    private var movieAdapter: MovieAdapter? = null
+    private var movieSortOrder = DEFAULT_SORT_ORDER
 
-    private var mScrollIndex = 0
-    private var mScrollOffset = 0
+    private var scrollIndex = 0
+    private var scrollOffset = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        mLoaderManager = supportLoaderManager
-
-        mMovieRecyclerView = findViewById(R.id.rv_movie_list) as RecyclerView
-        mGridLayoutManager = initializeGridLayoutManager()
-        mMovieRecyclerView!!.layoutManager = mGridLayoutManager
-
-        mMovieAdapter = MovieAdapter(this)
-        mMovieRecyclerView!!.adapter = mMovieAdapter
-
+        gridLayoutManager = initializeGridLayoutManager()
+        movieAdapter = MovieAdapter(this)
+        movieRecyclerView.layoutManager = gridLayoutManager
+        movieRecyclerView.adapter = movieAdapter
     }
 
     // in portrait, grid will have 2 columns and in landscape grid will have 3.
     private fun initializeGridLayoutManager(): GridLayoutManager {
-        val gridLayoutManager: GridLayoutManager
+        var gridLayoutManager: GridLayoutManager
         val deviceOrientation = FormatUtils.getDeviceOrientation(this)
 
         if (deviceOrientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -73,37 +64,35 @@ class MainActivity : AppCompatActivity(), MovieAdapter.MovieAdapterOnClickHandle
     }
 
     private fun saveScrollInfo() {
-        mScrollIndex = mGridLayoutManager!!.findFirstVisibleItemPosition()
-        val startView = mMovieRecyclerView!!.getChildAt(0)
-        mScrollOffset = if (startView ==
-                null) 0 else startView.top - mMovieRecyclerView!!.paddingTop
+        gridLayoutManager?.let { scrollIndex = it.findFirstVisibleItemPosition() }
+        val startView = movieRecyclerView.getChildAt(0)
+        scrollOffset = startView.top - movieRecyclerView.paddingTop
     }
 
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt(EXTRA_SCROLL_INDEX, mScrollIndex)
-        outState.putInt(EXTRA_SCROLL_OFFSET, mScrollOffset)
-        outState.putString(EXTRA_SORT_ORDER, mMovieSortOrder)
+        outState.putInt(EXTRA_SCROLL_INDEX, scrollIndex)
+        outState.putInt(EXTRA_SCROLL_OFFSET, scrollOffset)
+        outState.putString(EXTRA_SORT_ORDER, movieSortOrder)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        mScrollIndex = savedInstanceState.getInt(EXTRA_SCROLL_INDEX)
-        mScrollOffset = savedInstanceState.getInt(EXTRA_SCROLL_OFFSET)
-        mMovieSortOrder = savedInstanceState.getString(EXTRA_SORT_ORDER, DEFAULT_SORT_ORDER)
+        scrollIndex = savedInstanceState.getInt(EXTRA_SCROLL_INDEX)
+        scrollOffset = savedInstanceState.getInt(EXTRA_SCROLL_OFFSET)
+        movieSortOrder = savedInstanceState.getString(EXTRA_SORT_ORDER, DEFAULT_SORT_ORDER)
     }
 
     override fun onResume() {
         super.onResume()
-        fetchMovies(mMovieSortOrder)
+        fetchMovies(movieSortOrder)
     }
 
     private fun fetchMovies(urlEndpoint: String) {
-
         when (urlEndpoint) {
-            NetworkUtils.ENDPOINT_POPULAR_MOVIES -> fetchMoviesOnlyIfDeviceOnline(urlEndpoint)
-            NetworkUtils.ENDPOINT_TOP_RATED_MOVIES -> fetchMoviesOnlyIfDeviceOnline(urlEndpoint)
+            NetworkUtils.endpointPopularMovies -> fetchMoviesOnlyIfDeviceOnline(urlEndpoint)
+            NetworkUtils.endpointTopRatedMovies -> fetchMoviesOnlyIfDeviceOnline(urlEndpoint)
             MovieContract.ENDPOINT_FAVORITE_MOVIES -> fetchFavoriteMovies()
         }
     }
@@ -112,8 +101,7 @@ class MainActivity : AppCompatActivity(), MovieAdapter.MovieAdapterOnClickHandle
         if (NetworkUtils.isDeviceOnline(this)) {
             val queryBundle = Bundle()
             queryBundle.putString(QUERY_TMDB_MOVIE_BUNDLE_EXTRA, urlEndpoint)
-
-            mLoaderManager!!.restartLoader(TMDB_MOVIE_LOADER_ID, queryBundle, TmdbMoviesCallback())
+            loaderManager.restartLoader(TMDB_MOVIE_LOADER_ID, queryBundle, TmdbMoviesCallback())
 
         } else {
             Toast.makeText(this, getString(R.string.msg_movies_offline), Toast.LENGTH_SHORT).show()
@@ -121,7 +109,6 @@ class MainActivity : AppCompatActivity(), MovieAdapter.MovieAdapterOnClickHandle
     }
 
     private inner class TmdbMoviesCallback : LoaderManager.LoaderCallbacks<ArrayList<Movie>> {
-
         override fun onCreateLoader(id: Int, args: Bundle): android.support.v4.content.Loader<ArrayList<Movie>> {
             return object : AsyncTaskLoader<ArrayList<Movie>>(baseContext) {
 
@@ -130,21 +117,20 @@ class MainActivity : AppCompatActivity(), MovieAdapter.MovieAdapterOnClickHandle
                     forceLoad()
                 }
 
-                override fun loadInBackground(): ArrayList<Movie>? {
+                override fun loadInBackground(): ArrayList<Movie> {
                     val endpoint = args.getString(QUERY_TMDB_MOVIE_BUNDLE_EXTRA)
                     val movieRequestUrl = NetworkUtils.buildTmdbUrlWithSingleEndpoint(endpoint)
 
-                    if (movieRequestUrl != null) {
+                    movieRequestUrl?.let {
                         try {
-                            val jsonMovieString = NetworkUtils.getResponseFromHttpUrl(movieRequestUrl)
+                            val jsonMovieString: String? = NetworkUtils.getResponseFromHttpUrl(it)
                             return TheMovieDbJsonUtils.getMovieListFromJsonString(jsonMovieString)
 
                         } catch (e: Exception) {
                             e.printStackTrace()
                         }
-
                     }
-                    return null
+                    return arrayListOf<Movie>()
                 }
             }
         }
@@ -156,18 +142,16 @@ class MainActivity : AppCompatActivity(), MovieAdapter.MovieAdapterOnClickHandle
         override fun onLoaderReset(loader: Loader<ArrayList<Movie>>) {}
     }
 
-    private fun displayMoviesInGridLayout(moviesList: ArrayList<Movie>?) {
-        if (moviesList != null) {
-            mMovieAdapter!!.setMovieList(moviesList)
-            scrollToSavedPositionWithOffset()
-        } else {
-            Toast.makeText(this, getString(R.string.msg_movie_service_error), Toast.LENGTH_LONG).show()
-        }
+    private fun displayMoviesInGridLayout(moviesList: ArrayList<Movie>) {
+        movieAdapter?.setMovieList(moviesList)
+        scrollToSavedPositionWithOffset()
+
+        if(moviesList.isEmpty()) Toast.makeText(this, getString(R.string.msg_movie_service_error), Toast.LENGTH_LONG).show()
     }
 
     private fun scrollToSavedPositionWithOffset() {
-        if (mScrollIndex != -1) {
-            mGridLayoutManager!!.scrollToPositionWithOffset(mScrollIndex, mScrollOffset)
+        if (scrollIndex != -1) {
+            gridLayoutManager!!.scrollToPositionWithOffset(scrollIndex, scrollOffset)
         }
     }
 
@@ -181,15 +165,15 @@ class MainActivity : AppCompatActivity(), MovieAdapter.MovieAdapterOnClickHandle
         val id = item.itemId
 
         if (id == R.id.action_sort_popular) {
-            fetchMoviesOnlyIfDeviceOnline(NetworkUtils.ENDPOINT_POPULAR_MOVIES)
-            mMovieSortOrder = NetworkUtils.ENDPOINT_POPULAR_MOVIES
+            fetchMoviesOnlyIfDeviceOnline(NetworkUtils.endpointPopularMovies)
+            movieSortOrder = NetworkUtils.endpointPopularMovies
             return true
         } else if (id == R.id.action_sort_top_rated) {
-            fetchMoviesOnlyIfDeviceOnline(NetworkUtils.ENDPOINT_TOP_RATED_MOVIES)
-            mMovieSortOrder = NetworkUtils.ENDPOINT_TOP_RATED_MOVIES
+            fetchMoviesOnlyIfDeviceOnline(NetworkUtils.endpointTopRatedMovies)
+            movieSortOrder = NetworkUtils.endpointTopRatedMovies
             return true
         } else if (id == R.id.action_favorites) {
-            mMovieSortOrder = MovieContract.ENDPOINT_FAVORITE_MOVIES
+            movieSortOrder = MovieContract.ENDPOINT_FAVORITE_MOVIES
             fetchFavoriteMovies()
             return true
         }
@@ -201,11 +185,10 @@ class MainActivity : AppCompatActivity(), MovieAdapter.MovieAdapterOnClickHandle
         val queryBundle = Bundle()
         queryBundle.putString(QUERY_FAVORITE_MOVIES_BUNDLE_EXTRA, null)
 
-        mLoaderManager!!.restartLoader(FAVORITE_MOVIES_LOADER_ID, queryBundle, FavoriteMoviesCallback())
+        loaderManager.restartLoader(FAVORITE_MOVIES_LOADER_ID, queryBundle, FavoriteMoviesCallback())
     }
 
     private inner class FavoriteMoviesCallback : LoaderManager.LoaderCallbacks<Cursor> {
-
         override fun onCreateLoader(id: Int, args: Bundle): Loader<Cursor> {
             return object : AsyncTaskLoader<Cursor>(baseContext) {
 
@@ -221,13 +204,14 @@ class MainActivity : AppCompatActivity(), MovieAdapter.MovieAdapterOnClickHandle
                         e.printStackTrace()
                         return null
                     }
-
                 }
             }
         }
 
-        override fun onLoadFinished(loader: Loader<Cursor>, data: Cursor) {
-            displayMoviesInGridLayout(extractFavoriteMoviesFromCursor(data))
+        override fun onLoadFinished(loader: Loader<Cursor>, data: Cursor?) {
+            data?.let{
+                displayMoviesInGridLayout(extractFavoriteMoviesFromCursor(it))
+            }
         }
 
         override fun onLoaderReset(loader: Loader<Cursor>) {}
@@ -267,8 +251,8 @@ class MainActivity : AppCompatActivity(), MovieAdapter.MovieAdapterOnClickHandle
 
     // Loaders must be destroyed when going to child activity, or they will both automatically be called upon return.
     private fun destroyLoaders() {
-        mLoaderManager!!.destroyLoader(TMDB_MOVIE_LOADER_ID)
-        mLoaderManager!!.destroyLoader(FAVORITE_MOVIES_LOADER_ID)
+        loaderManager.destroyLoader(TMDB_MOVIE_LOADER_ID)
+        loaderManager.destroyLoader(FAVORITE_MOVIES_LOADER_ID)
     }
 
     companion object {
@@ -281,7 +265,7 @@ class MainActivity : AppCompatActivity(), MovieAdapter.MovieAdapterOnClickHandle
         private val EXTRA_SCROLL_INDEX = "scroll_index"
         private val EXTRA_SCROLL_OFFSET = "scroll_offset"
         private val EXTRA_SORT_ORDER = "sort_order"
-        private val DEFAULT_SORT_ORDER = NetworkUtils.ENDPOINT_POPULAR_MOVIES
+        private val DEFAULT_SORT_ORDER = NetworkUtils.endpointPopularMovies
 
         private val QUERY_TMDB_MOVIE_BUNDLE_EXTRA = "tmdb_movie_query"
         private val TMDB_MOVIE_LOADER_ID = 455

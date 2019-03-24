@@ -9,7 +9,7 @@
 
 
     <TextView
-        android:id="@+id/tv_review_author"
+        android:id="@+id/reviewAuthorTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/spacing_horizontal_medium"
@@ -18,7 +18,7 @@
         />
 
     <TextView
-        android:id="@+id/tv_review_content"
+        android:id="@+id/reviewContentTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/spacing_horizontal_large"

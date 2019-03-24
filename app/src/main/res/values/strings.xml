@@ -12,7 +12,7 @@
     <string name="msg_movies_offline">No Network Connection, unable to retrieve movies</string>
     <string name="msg_videos_offline">No Network Connection, unable to retrieve videos</string>
     <string name="msg_reviews_offline">No Network Connection, unable to retrieve reviews</string>
-    <string name="msg_movie_service_error">Unable to retrieve movies at this time</string>
+    <string name="msg_movie_service_error">Movie list empty or unable to retrieve movies at this time</string>
     <string name="description_movie_poster">movie poster</string>
     <string name="description_favorite_icon">favorite movie icon</string>
     <string name="description_play_icon">play movie clip icon</string>

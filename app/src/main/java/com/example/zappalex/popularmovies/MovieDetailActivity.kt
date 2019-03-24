@@ -47,6 +47,8 @@ class MovieDetailActivity : AppCompatActivity(), VideoAdapter.VideoAdapterOnClic
 
         isMovieInFavorites = isMovieInFavorites(queryCurrentMovie(), currentMovie)
         toggleFavoritesHeartImage(isMovieInFavorites)
+
+        favoriteImageView.setOnClickListener { handleFavoriteClickLogic() }
     }
 
     private fun initLayoutAdapters() {
@@ -67,7 +69,7 @@ class MovieDetailActivity : AppCompatActivity(), VideoAdapter.VideoAdapterOnClic
         val intentThatStartedActivity = intent
         if (intentThatStartedActivity.hasExtra(MainActivity.PARCELABLE_MOVIE)) {
             currentMovie = intentThatStartedActivity.getParcelableExtra(MainActivity.PARCELABLE_MOVIE)
-            populateViews(currentMovie!!)
+            currentMovie?.let { populateViews(it) }
 
             val videosEndpoint = NetworkUtils.formatVideosEndpointWithId(currentMovie?.id)
             fetchVideosOnlyIfOnline(videosEndpoint)
@@ -81,7 +83,7 @@ class MovieDetailActivity : AppCompatActivity(), VideoAdapter.VideoAdapterOnClic
     }
 
     private fun populateViews(movie: Movie) {
-        tv_video_title.text = movie.title
+        movieTitleTextView.text = movie.title
         movieDateTextView.text = FormatUtils.getYearFromDateString(movie.releaseDate)
         ratingTextView.text = FormatUtils.getFormattedRating(movie.userRating)
         movieOverviewTextView.text = movie.overview
@@ -140,9 +142,9 @@ class MovieDetailActivity : AppCompatActivity(), VideoAdapter.VideoAdapterOnClic
             }
         }
 
-        override fun loadInBackground(): ArrayList<Video>? {
+        override fun loadInBackground(): ArrayList<Video> {
             val videosRequestUrl = NetworkUtils.buildTmdbUrlWithPathEndpoint(videosEndpoint)
-            videosRequestUrl.let {
+            videosRequestUrl?.let {
                 try {
                     val jsonVideosString = NetworkUtils.getResponseFromHttpUrl(it)
                     return TheMovieDbJsonUtils.getVideoListFromJsonString(jsonVideosString)
@@ -150,7 +152,7 @@ class MovieDetailActivity : AppCompatActivity(), VideoAdapter.VideoAdapterOnClic
                     e.printStackTrace()
                 }
             }
-            return null
+            return arrayListOf<Video>()
         }
 
         override fun deliverResult(data: ArrayList<Video>) {
@@ -185,7 +187,7 @@ class MovieDetailActivity : AppCompatActivity(), VideoAdapter.VideoAdapterOnClic
             }
         }
 
-        override fun loadInBackground(): ArrayList<Review>? {
+        override fun loadInBackground(): ArrayList<Review> {
             // TODO: fix returning null here?
             val reviewsRequestUrl = NetworkUtils.buildTmdbUrlWithPathEndpoint(reviewsEndpoint)
                 try {
@@ -194,7 +196,7 @@ class MovieDetailActivity : AppCompatActivity(), VideoAdapter.VideoAdapterOnClic
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
-            return null
+            return arrayListOf<Review>()
         }
 
         override fun deliverResult(data: ArrayList<Review>) {
