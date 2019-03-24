@@ -144,7 +144,7 @@ class MovieDetailActivity : AppCompatActivity(), VideoAdapter.VideoAdapterOnClic
 
         override fun loadInBackground(): ArrayList<Video> {
             val videosRequestUrl = NetworkUtils.buildTmdbUrlWithPathEndpoint(videosEndpoint)
-            videosRequestUrl?.let {
+            videosRequestUrl.let {
                 try {
                     val jsonVideosString = NetworkUtils.getResponseFromHttpUrl(it)
                     return TheMovieDbJsonUtils.getVideoListFromJsonString(jsonVideosString)
@@ -209,10 +209,7 @@ class MovieDetailActivity : AppCompatActivity(), VideoAdapter.VideoAdapterOnClic
         if (videoList.size > 0) {
             val youtubeUri = NetworkUtils.buildYouTubeUriWithVideoKey(videoList[position].key)
             val viewVideoIntent = Intent(Intent.ACTION_VIEW, youtubeUri)
-
-            if (viewVideoIntent.resolveActivity(packageManager) != null) {
-                startActivity(viewVideoIntent)
-            }
+            startActivity(viewVideoIntent)
         }
     }
 
@@ -300,6 +297,7 @@ class MovieDetailActivity : AppCompatActivity(), VideoAdapter.VideoAdapterOnClic
         } else {
             displayStatusOfSuccessfulInsert(false)
         }
+
     }
 
     private fun createFavoriteMovieContentValues(): ContentValues? {

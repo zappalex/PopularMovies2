@@ -151,7 +151,7 @@ class MainActivity : AppCompatActivity(), MovieAdapter.MovieAdapterOnClickHandle
 
     private fun scrollToSavedPositionWithOffset() {
         if (scrollIndex != -1) {
-            gridLayoutManager!!.scrollToPositionWithOffset(scrollIndex, scrollOffset)
+            gridLayoutManager?.scrollToPositionWithOffset(scrollIndex, scrollOffset)
         }
     }
 
